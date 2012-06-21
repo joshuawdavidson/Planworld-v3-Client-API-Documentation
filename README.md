@@ -1,12 +1,12 @@
 #Planworld v3 Client API
 
 This API allows you to write alternative user-facing interfaces for planworld. It is not
-appropriate for server<-*server communication, which will be covered later in a v3 Server
+appropriate for server-server communication, which will be covered later in a v3 Server
 API revision.
 
-For reference:
-[HTTP Verbs](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
-[HTTP Status Codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
+For reference:  
+* [HTTP Verbs](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
+* [HTTP Status Codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
 
 ##Before you begin
 Some principles to keep in mind:
