@@ -47,8 +47,8 @@ Some principles to keep in mind:
 Endpoint URLs are omitted from the API requests below. A complete API request looks
 like this:
 
-https://server.com/endpoint/ _api/request_.format ?clientkey= _client key_ &userkey = _user key_
-or
+https://server.com/endpoint/ _api/request_.format ?clientkey= _client key_ &userkey = _user key_  
+or  
 https://server.com/endpoint/ _api/request_.format ?clientkey= _client key_ &token = _user token_
 
 For API calls that require different query string parameters (the stuff after the ?) they
@@ -91,7 +91,7 @@ FAILURE: 404 Not Found if the user has no plan
          400 Bad Request if the user does not exist
 
 notes: 
-  use the accept header to indicate the desired plan formatting.
+	use the accept header to indicate the desired plan formatting.
 	(plaintext, html, unprocessed)
 	a server may respond with 400 Bad Request for specifically blocked readers to protect
 		user privacy, but should always use 403 Forbidden for nonspecific blocking such as
