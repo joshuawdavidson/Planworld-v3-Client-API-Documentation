@@ -1,7 +1,7 @@
 #Planworld v3 Client API
 
 This API allows you to write alternative user-facing interfaces for planworld. It is not
-appropriate for server<->server communication, which will be covered later in a v3 Server
+appropriate for server<-*server communication, which will be covered later in a v3 Server
 API revision.
 
 ##Before you begin
@@ -76,8 +76,10 @@ This is oauth-ish.
 GET /token  
 ?clientkey= _your client key_ &username= _the username_ &password= _the user password_
 
-SUCCESS: 200 OK with the token as the body  
-FAILURE: 401 Unauthorized, error text may be included in the body
+SUCCESS:  
+* 200 OK with the token as the body  
+FAILURE:  
+* 401 Unauthorized, error text may be included in the body
 
 ### Plans ###
 
@@ -85,18 +87,18 @@ FAILURE: 401 Unauthorized, error text may be included in the body
 GET /plan/_planname_  
 GET /plan/_planname_/entry/_entryid_  
 
-SUCCESS:
-    > 200 OK, plan content as the body  
-FAILURE:
-    > 404 Not Found if the user has no plan  
-    > 403 Forbidden if the reader is not allowed  
-    > 400 Bad Request if the user does not exist  
+SUCCESS:  
+    * 200 OK, plan content as the body  
+FAILURE:  
+    * 404 Not Found if the user has no plan  
+    * 403 Forbidden if the reader is not allowed  
+    * 400 Bad Request if the user does not exist  
 
-notes: 
-> 	use the accept header to indicate the desired plan formatting.
+notes:   
+* 	use the accept header to indicate the desired plan formatting.
 	(plaintext, html, unprocessed)
 
-> 	a server may respond with 400 Bad Request for specifically blocked readers to protect
+* 	a server may respond with 400 Bad Request for specifically blocked readers to protect
 		user privacy, but should always use 403 Forbidden for nonspecific blocking such as
 		crossnode bans.
 
@@ -107,52 +109,52 @@ POST /plan/_planname_/entry/_entryid_
 
 POST DATA: entry= _plan entry text_ & parameters= _plan metadata struct_
 
-SUCCESS:
-    > 201 Created for a journaling plan  
-    > 200 OK for a traditional plan  
-FAILURE:
-    > 403 Forbidden if the writer cannot update that plan
+SUCCESS:    
+    * 201 Created for a journaling plan  
+    * 200 OK for a traditional plan  
+FAILURE:  
+    * 403 Forbidden if the writer cannot update that plan
 
-notes:
-> 	clients should GET /username/plan/settings before presenting the plan update form
+notes:  
+* 	clients should GET /username/plan/settings before presenting the plan update form
 		so that you can provide the appropriate parameters  
 
-> 	if the plan is traditional-style, clients should get the content of the current plan
+* 	if the plan is traditional-style, clients should get the content of the current plan
 		(with an accept header "unprocessed") to present in the update form.  
 
-> 	clients should GET /plan/_planname_ on response to refresh the view
+* 	clients should GET /plan/_planname_ on response to refresh the view
 
 
 #### Removing a Plan or Entry ########
 DELETE /plan/_planname_  
 DELETE /plan/_planname_/entry/_entryid_  
 
-SUCCESS: 
->     205 Reset Content  
-FAILURE: 
->     403 Forbidden if the writer cannot update that plan  
->     404 Not Found if the plan or entry does not exist  
+SUCCESS:  
+* 205 Reset Content  
+FAILURE:   
+* 403 Forbidden if the writer cannot update that plan  
+* 404 Not Found if the plan or entry does not exist  
 
-notes:
-> 	clients should GET /plan/_planname_ on response to refresh the view  
+notes:  
+* 	clients should GET /plan/_planname_ on response to refresh the view  
 
 
 ### User Info / Whois ##
 #### Getting User Info ######
 GET /info/_username_
 
-SUCCESS:
->     200 OK, bio or other whois content as the body  
-FAILURE:
->     404 Not Found if the user has no bio/info stored  
->     403 Forbidden if the reader is not allowed  
->     400 Bad Request if the user does not exist  
+SUCCESS:  
+* 200 OK, bio or other whois content as the body  
+FAILURE:  
+* 404 Not Found if the user has no bio/info stored  
+* 403 Forbidden if the reader is not allowed  
+* 400 Bad Request if the user does not exist  
 
-notes:
-> 	use the accept header to indicate the desired plan formatting.
+notes:   
+* 	use the accept header to indicate the desired plan formatting.
 	(plaintext, html, unprocessed)
 
-> 	a server may respond with 400 Bad Request for specifically blocked readers to protect
+* 	a server may respond with 400 Bad Request for specifically blocked readers to protect
 		user privacy, but should always use 403 Forbidden for nonspecific blocking such as
 		crossnode bans.
 
@@ -163,7 +165,7 @@ notes:
 GET /planwatch
 
 SUCCESS:
->     200 OK and the watched list struct
+* 200 OK and the watched list struct
 
-notes:
->    documentation of watched list structure to follow
+notes:  
+* documentation of watched list structure to follow
