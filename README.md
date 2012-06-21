@@ -7,38 +7,38 @@ API revision.
 ##Before you begin
 Some principles to keep in mind:
 
-1. CLIENT KEY REQUIRED
+1. CLIENT KEY REQUIRED  
    All clients need a Client Key, which you can get from any of the planworld nodes.
    If an API request does not include a client key, the server must respond with a 
    449 Retry with valid parameters status and explanatory text.
 
-2. USER AGENT REQUIRED
+2. USER AGENT REQUIRED  
    Clients must report the user agent used to register for their API key when making
    requests. 
 
-3. SSL REQUIRED
+3. SSL REQUIRED  
    Clients must use SSL for all communication. If an API request is sent unencrypted,
    the server must respond with a 426 Upgrade Required status and explanatory text.
 
-4. USER KEY SUGGESTED
+4. USER KEY SUGGESTED  
    Clients are strongly encouraged to use the User Key flow, detailed below, when possible
 
-5. SECURE CREDENTIAL STORAGE REQUIRED
+5. SECURE CREDENTIAL STORAGE REQUIRED  
    If a client stores usernames and passwords for authentication, they must be encrypted
    and stored securely using the best available means. Client Key revocation will result
    for clients that do not safeguard user credentials.
 
-6. API ENDPOINTS MAY CHANGE
+6. API ENDPOINTS MAY CHANGE  
    Clients should include the API endpoint of the server that issued their Client Key
    for distribution, and call /nodes periodically to learn about other nodes and
    endpoints. Servers should provide an overlap of at least one week when changing
    API endpoints to give all clients time for discovery.
    
-7. TOKENS WILL EXPIRE
+7. TOKENS WILL EXPIRE  
    Clients are encouraged to refresh/replace tokens before expiry. Keep in mind that 
    clock skew may come into play, and give yourself a buffer of at least a few seconds.
    
-8. RESPONSE FORMAT
+8. RESPONSE FORMAT  
    Clients may specify the response format as an extension in the URL. The server should
    return JSON if no format is specified.
 
@@ -73,22 +73,22 @@ This is oauth-ish.
    
 
 #### Getting a User Token ###
-GET /token
+GET /token  
 ?clientkey= _your client key_ &username= _the username_ &password= _the user password_
 
-SUCCESS: 200 OK with the token as the body
+SUCCESS: 200 OK with the token as the body  
 FAILURE: 401 Unauthorized, error text may be included in the body
 
 ### Plans ###
 
 #### Getting a Plan or Entry #########
-GET /plan/_planname_
-GET /plan/_planname_/entry/_entryid_
+GET /plan/_planname_  
+GET /plan/_planname_/entry/_entryid_  
 
-SUCCESS: 200 OK, plan content as the body
-FAILURE: 404 Not Found if the user has no plan
-         403 Forbidden if the reader is not allowed
-         400 Bad Request if the user does not exist
+SUCCESS: 200 OK, plan content as the body  
+FAILURE: 404 Not Found if the user has no plan  
+         403 Forbidden if the reader is not allowed  
+         400 Bad Request if the user does not exist  
 
 notes: 
 	use the accept header to indicate the desired plan formatting.
@@ -99,53 +99,51 @@ notes:
 
 
 #### Updating a Plan or entry ########
-POST /plan/_planname_
-POST /plan/_planname_/entry/_entryid_
+POST /plan/_planname_  
+POST /plan/_planname_/entry/_entryid_  
 
 POST DATA: entry= _plan entry text_ & parameters= _plan metadata struct_
 
-SUCCESS: 201 Created for a journaling plan
-         200 OK for a traditional plan
+SUCCESS: 201 Created for a journaling plan  
+         200 OK for a traditional plan  
 FAILURE: 403 Forbidden if the writer cannot update that plan
 
 notes:
 	clients should GET /username/plan/settings before presenting the plan update form
-	so that you can provide the appropriate parameters
+		so that you can provide the appropriate parameters  
 	if the plan is traditional-style, clients should get the content of the current plan
-	(with an accept header "unprocessed") to present in the update form.
+		(with an accept header "unprocessed") to present in the update form.  
 	clients should GET /plan/_planname_ on response to refresh the view
 
 
 #### Removing a Plan or Entry ########
-DELETE /plan/_planname_
-DELETE /plan/_planname_/entry/_entryid_
+DELETE /plan/_planname_  
+DELETE /plan/_planname_/entry/_entryid_  
 
-SUCCESS: 205 Reset Content
-FAILURE: 403 Forbidden if the writer cannot update that plan
-         404 Not Found if the plan or entry does not exist
+SUCCESS: 205 Reset Content  
+FAILURE: 403 Forbidden if the writer cannot update that plan  
+         404 Not Found if the plan or entry does not exist  
 
 notes:
-	clients should GET /plan/_planname_ on response to refresh the view
+	clients should GET /plan/_planname_ on response to refresh the view  
 
 
-### Getting User Info ######
+### User Info / Whois ##
+#### Getting User Info ######
 GET /info/_username_
 
-SUCCESS: 200 OK, bio or other whois content as the body
-FAILURE: 404 Not Found if the user has no bio/info stored
-         403 Forbidden if the reader is not allowed
-         400 Bad Request if the user does not exist
+SUCCESS: 200 OK, bio or other whois content as the body  
+FAILURE: 404 Not Found if the user has no bio/info stored  
+         403 Forbidden if the reader is not allowed  
+         400 Bad Request if the user does not exist  
 
 
+### Watched List ###
 
-### Getting a Watched List ########
+#### Getting a Watched List ########
 GET /planwatch
 
-SUCCESS: 205 Reset Content
-FAILURE: 403 Forbidden if the writer cannot update that plan
-         404 Not Found if the plan or entry does not exist
+SUCCESS: 200 OK and the watched list struct
 
 notes:
-	clients should GET /plan/_planname_ on response to refresh the view
-
-
+	documentation of watched list structure to follow
