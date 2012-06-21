@@ -78,6 +78,7 @@ GET /token
 
 SUCCESS:  
 * 200 OK with the token as the body  
+
 FAILURE:  
 * 401 Unauthorized, error text may be included in the body
 
@@ -88,11 +89,12 @@ GET /plan/_planname_
 GET /plan/_planname_/entry/_entryid_  
 
 SUCCESS:  
-    * 200 OK, plan content as the body  
+* 200 OK, plan content as the body  
+
 FAILURE:  
-    * 404 Not Found if the user has no plan  
-    * 403 Forbidden if the reader is not allowed  
-    * 400 Bad Request if the user does not exist  
+* 404 Not Found if the user has no plan  
+* 403 Forbidden if the reader is not allowed  
+* 400 Bad Request if the user does not exist  
 
 notes:   
 * 	use the accept header to indicate the desired plan formatting.
@@ -110,10 +112,11 @@ POST /plan/_planname_/entry/_entryid_
 POST DATA: entry= _plan entry text_ & parameters= _plan metadata struct_
 
 SUCCESS:    
-    * 201 Created for a journaling plan  
-    * 200 OK for a traditional plan  
+* 201 Created for a journaling plan  
+* 200 OK for a traditional plan  
+
 FAILURE:  
-    * 403 Forbidden if the writer cannot update that plan
+* 403 Forbidden if the writer cannot update that plan
 
 notes:  
 * 	clients should GET /username/plan/settings before presenting the plan update form
@@ -131,6 +134,7 @@ DELETE /plan/_planname_/entry/_entryid_
 
 SUCCESS:  
 * 205 Reset Content  
+
 FAILURE:   
 * 403 Forbidden if the writer cannot update that plan  
 * 404 Not Found if the plan or entry does not exist  
@@ -145,6 +149,7 @@ GET /info/_username_
 
 SUCCESS:  
 * 200 OK, bio or other whois content as the body  
+
 FAILURE:  
 * 404 Not Found if the user has no bio/info stored  
 * 403 Forbidden if the reader is not allowed  
