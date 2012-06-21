@@ -4,6 +4,10 @@ This API allows you to write alternative user-facing interfaces for planworld. I
 appropriate for server<-*server communication, which will be covered later in a v3 Server
 API revision.
 
+For reference:
+[HTTP Verbs](https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol)
+[HTTP Status Codes](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
+
 ##Before you begin
 Some principles to keep in mind:
 
